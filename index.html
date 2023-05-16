@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artist Search</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.15/tailwind.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-indigo-400">
+  <header class="flex justify-center">
+    <h1 class="underline text-xl font-bold italic">WikiRhythm Artist Search</h1>
+  </header>
+
+  <main class="font-serif">
+    <form id="search-form">
+      <label class="text-lg pr-3" for="artist-input">Enter an artist:</label>
+      <input class="rounded" type="text" id="artist-input" required>
+      <button class="bg-gray-200 rounded-md m-2 font-medium" type="submit">Search</button>
+    </form>
+    <div class="font-bold text-lg  " id="artist-name"></div>
+    <div class="font-semibold"  id="albums-display"></div>
+    <div id="bio-display"></div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
