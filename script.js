@@ -3,7 +3,8 @@
  const artistInput = document.getElementById('artist-input');
  const albumsDisplay = document.getElementById('albums-display');
  const bioDisplay = document.getElementById('bio-display');
- const artistName  = document.getElementById('artist-name')
+ const artistName  = document.getElementById('artist-name');
+ const imageDisplay = document.getElementById('image-display');
 
  // Event listener for form submission IE main section here
  searchForm.addEventListener('submit', function(event) {
@@ -35,6 +36,15 @@
      .catch(function(error) {
        console.log(error);
      });
+
+     getArtistImage(artist)
+     .then(function(imageSource){
+      displayImage(imageSource);
+     })
+     .catch (function(error){
+      console.log(error);
+     });
+
 
    // Reset the input field
    artistInput.value = '';
@@ -111,3 +121,29 @@ function displayAlbums(albums) {
  function displayBiography(biography) {
    bioDisplay.innerHTML = biography;
  }
+
+ //Function to display image on the page
+ function displayImage(imageSource) {
+  imageDisplay.innerHTML = '';
+  const imageEl = document.createElement('img');
+  imageEl.src = imageSource;
+  imageDisplay.appendChild(imageEl);
+
+ }
+
+ //Function to fetch artist image from Wiki API
+ async function getArtistImage(artist) {
+  const response = await fetch('https://en.wikipedia.org/w/api.php?origin=*&action=query&prop=pageimages&titles=' + artist +'&format=json&piprop=original');
+
+  if (response.ok) {
+    const data = await response.json();
+    const pages = data.query.pages;
+    const pageIds = Object.keys(pages);
+    const imageSource = pages[pageIds].original.source;
+    console.log(imageSource);
+
+    return imageSource;
+  } else {
+    throw new Error('Error fetching artist image');
+  }
+}
